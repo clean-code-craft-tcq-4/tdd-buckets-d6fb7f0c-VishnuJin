@@ -1,8 +1,19 @@
+"""
+this is the core app to monitor current range stats
+"""
+
 from itertools import groupby
 from current_sensors.sensor import Sensor
 
 
+# note-to-reviewer ->  inorder to not touch the existing tests & app implementaion, I came up with this solution
 def smart_converter(func):
+    """
+    this is a decorator function that converts measurement inputs from sensors to Amps
+    Any function that use this decorator need not worry about the input measurement conversion
+    The sensors should implement the 'Sensor' interface for this to work
+
+    """
     def convert_to_amps(range):
         return (
             func(range.convert_to_amps()) if isinstance(range, Sensor) else func(range)
