@@ -7,7 +7,7 @@ from current_sensors.sensor import Sensor
 
 
 # note-to-reviewer ->  inorder to not touch the existing tests & app implementaion, I came up with this solution
-def smart_converter(func):
+def convert_measurements_to_amps(func):
     """
     this is a decorator function that converts measurement inputs from sensors to Amps
     Any function that use this decorator need not worry about the input measurement conversion
@@ -22,12 +22,12 @@ def smart_converter(func):
     return convert_to_amps
 
 
-@smart_converter
+@convert_measurements_to_amps
 def sort_range_in_ascending(_range):
     return sorted(_range)
 
 
-@smart_converter
+@convert_measurements_to_amps
 def get_continuous_ranges(_range):
 
     range_splits = []
@@ -39,7 +39,7 @@ def get_continuous_ranges(_range):
     return range_splits
 
 
-@smart_converter
+@convert_measurements_to_amps
 def get_range_intervals(_range):
     continuous_ranges = []
     for _, readings in groupby(enumerate(set(_range)), lambda a: a[1] - a[0]):
@@ -48,7 +48,7 @@ def get_range_intervals(_range):
     return continuous_ranges
 
 
-@smart_converter
+@convert_measurements_to_amps
 def convert_ranges_to_dict(_range):
     return [{"Range": f"{i[0]}-{i[-1]}", "Readings": len(i)} for i in _range]
 
@@ -63,7 +63,7 @@ def print_as_csv_to_console(stats):
         print(f"{stat['Range']}, {stat['Readings']}")
 
 
-@smart_converter
+@convert_measurements_to_amps
 def show_charging_statistics(measurements):
     continuous_range = get_continuous_ranges(measurements)
     output_ranges_as_csv(
