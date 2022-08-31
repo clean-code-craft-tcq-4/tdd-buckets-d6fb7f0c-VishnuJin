@@ -1,6 +1,7 @@
 import pytest
 from current_range_monitor import get_continuous_ranges, convert_ranges_to_dict
 from current_sensors.a2d_12_bit_converter import A2D12Bit
+from current_sensors.a2d_10_bit_converter import A2D10Bit
 
 
 @pytest.mark.parametrize(
@@ -17,6 +18,13 @@ from current_sensors.a2d_12_bit_converter import A2D12Bit
             A2D12Bit([1000, 1100, 1500, 2000]),
             [
                 {"Range": "2-5", "Readings": 4},
+            ],
+        ),
+        (
+            A2D10Bit([900, 920, 1000, 1022, 0]),
+            [
+                {"Range": "11-12", "Readings": 2},
+                {"Range": "14-15", "Readings": 3},
             ],
         ),
     ],
