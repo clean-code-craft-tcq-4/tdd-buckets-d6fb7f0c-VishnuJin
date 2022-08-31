@@ -6,11 +6,10 @@ from current_range_monitor import (
 
 
 def test_sort_range_in_ascending():
-    given_range = [3, 3, 5, 4, 10, 11, 12]
-    expected_range = [3, 3, 4, 5, 10, 11, 12]
+    given_range =  [3, 3, 5, 4, 10, 11, 12]
+    expected_range =  [3, 3, 4, 5, 10, 11, 12]
     actual_output = sort_range_in_ascending(given_range)
     assert actual_output == expected_range
-
 
 def test_get_continuous_ranges():
     given_range = [3, 3, 4, 5, 10, 11, 12]
